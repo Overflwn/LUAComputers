@@ -1,6 +1,9 @@
 # LUAComputers
 Boot up a minicomputer and start developing games and programs in LUA!
 
+# Requirements
+- Well... LÖVE obviously (I am planning on porting this to another language though..)
+
 # Quick Installation Tutorial
 1. Download the .zip and unpack it somewhere
 2. Copy the content from "put this into %appdata%" into %appdata% (or for linux: ~/.local/share/ and make the folder "LOVE" lowercase)
