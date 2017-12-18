@@ -22,11 +22,11 @@ term.writeText(1, 7, ",.;-+=/")
 
 while true do
 	local _, x, y, btn = unpack(event.pull())
-	--[[if (_ == "mouse_click" or _ == "mouse_release" or _ == "mouse_drag") and btn == 1 then
+	if (_ == "mouse_click" or _ == "mouse_release" or _ == "mouse_drag") and btn == 1 then
 		gpu.drawPixel(x, y, {255, 0, 0})
-	end]]
-	if _ == "mouse_click" and btn == 1 then
-		local success, err = modem.send("127.0.0.1", "Hewwo world")
+	end
+	--[[if _ == "mouse_click" and btn == 1 then
+		local success, err = modem.send("192.168.0.38", "Hewwo world")
 		if not success then term.writeText(1,11,tostring(err)) else
 			term.writeText(1,9,"Sent")
 		end
@@ -36,5 +36,5 @@ while true do
 		if msg then term.writeText(12,9,msg) else
 			term.writeText(12,9,"No message.")
 		end
-	end
+	end]]
 end

@@ -35,5 +35,5 @@ function _G.modem.receive(timeout)
 end
 
 function _G.modem.send(ip, msg)
-	return networking.send(ip, msg, 76767)
+	return networking.send(ip, msg, 7676)
 end
