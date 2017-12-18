@@ -8,7 +8,7 @@
 	
 	What this program tries to do better than ComputerCraft:
 		-	Have a higher amount of "pixels" (not to confuse with the actual resolution; 1 "pixel" = 1 character with a background color)
-			(4x the amount = 204x76 )
+			(320x180)
 		-	Overall higher performance
 		-	Global networking system (with use of the socket API from LÖVE)
 		-	(A wrapper for the sound system)
@@ -21,11 +21,10 @@
 	Last Edit: 13/12/2017 (DD/MM/YYYY)
 	
 	DEV CHANGES:
-	-	Make the window 16:9 (standard: 320x180)
-	-	Make one pixel 4x4 actual pixels
+	-	Make the window 16:9 (standard: 320x180, that's the retro feel we want)
 	-	Make it scale based on the resolution of the window
 	-	Remove that "one char on a 'pixel' " policy; a "pixel" functions like an actual pixel.
-	-	Make that "one char on a pixel" policy as the gpu API ONTOP of the normal graphics API (current name: gpu)
+	-	Make that "one char on a pixel" policy as the term API ONTOP of the normal graphics API (current name: gpu)
 
 ]]
 
