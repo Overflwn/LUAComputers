@@ -43,7 +43,7 @@ mainStuff.love = nil
 
 -- Constants
 _G.NETWORKING_HOST_ADDRESS, _G.NETWORKING_HOST_PORT, _G.NETWORKING_UPDATERATE, _G.NETWORKING_SOCKET, _G.NETWORKING_TIMER = 0, 0, 0, 0, 0
-_G.TERM_SIZE_X, _G.TERM_SIZE_Y = 0, 0
+_G.TERM_SIZE_X, _G.TERM_SIZE_Y = 320, 180
 local scaleX, scaleY = 0, 0
 local pixel_width, pixel_height = 0, 0
 local font = nil
@@ -124,8 +124,6 @@ function love.load()
 	else
 		print("Created socket.")
 	end
-	TERM_SIZE_X = 320 --800/4(200)
-	TERM_SIZE_Y = 180 --600/4(150)
 	scaleX, scaleY = love.graphics.getWidth() / 1280, love.graphics.getHeight() / 720
 	gpu.setColor({0,0,0})
 	gpu.clear()
