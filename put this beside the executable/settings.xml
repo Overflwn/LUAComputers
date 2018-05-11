@@ -1,0 +1,14 @@
+<settings>
+	<window>
+		<width>816</width>
+		<height>608</height>
+		<title>CLuaComputers</title>
+	</window>
+	<terminal>
+		<width>51</width>
+		<height>19</height>
+	</terminal>
+	<computer>
+		<bios>bios.lua</bios>
+	</computer>
+</settings>
