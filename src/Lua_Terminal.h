@@ -18,8 +18,8 @@
 #include "Color.h"
 #include "Terminal.h"
 #include <SFML/Graphics.hpp>
-#include <lua5.2/lua.hpp>
-#include <lua5.2/lauxlib.h>
+#include <lua.hpp>
+#include <lauxlib.h>
 
 namespace LuaComputers::Lua
 {

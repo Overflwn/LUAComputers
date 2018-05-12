@@ -21,18 +21,13 @@ Terminal::Terminal(int width, int height, int window_width, int window_height) :
 			
 			float pos_x = static_cast<float>(x) * pixel_size.x;
 			float pos_y = static_cast<float>(y) * pixel_size.y;
-			printf("PIXEL: %d,    %f x %f\n", y*width+x, pos_x, pos_y);
 			pixels[y*width+x].getShape().setSize(pixel_size);
 			pixels[y*width+x].getShape().setPosition(pos_x, pos_y);
-			pixels[y*width+x].character.setPosition(pos_x+3, pos_y);
+			pixels[y*width+x].character.setPosition(pos_x+2, pos_y+2);
 			pixels[y*width+x].character.setFont(font);
-			//pixels[y*width+x].character.setCharacterSize(static_cast<int>(pixel_size.x)*2-1);
 			pixels[y*width+x].character.setCharacterSize(32*scaling_x);
 			//This scaling was tested on a 51x19 terminal size and 816x608 window size.
 			pixels[y*width+x].character.setScale(0.675f, 0.8f);
-			sf::FloatRect bounds = pixels[y*width+x].character.getGlobalBounds();
-			printf("BOUNDS: %f,%f\n", bounds.left, bounds.top);
-			//pixels[y*width+x].character.setPosition(pos_x + (pixel_size.x / 2 - bounds.width / 2),pos_y);
 		}
 	}
 }

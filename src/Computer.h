@@ -15,8 +15,8 @@
 
 #ifndef COMPUTER_H
 #define COMPUTER_H
-#include <lua5.2/lua.hpp>
-#include <lua5.2/lauxlib.h>
+#include <lua.hpp>
+#include <lauxlib.h>
 #include "Lua_Terminal.h"
 
 namespace LuaComputers
