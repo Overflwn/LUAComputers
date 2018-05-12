@@ -13,7 +13,9 @@ Hopefully this will work out..
 
 # Requirements
 ## Executable
-- Currently nothing besides a settings file (XML format), a bios.lua (the first lua file that gets executed) and the fontfile (currently called Minecraft.otf for whatever reason)
+- The SFML shared libraries (.dll or .so; you can get these if you either install SFML (unix) or get them from the .zip file (**IMPORTANT: The Windows version needs the MinGW version of SFML!!**)
+- Windows: Either have MinGW installed and set in the PATH variable, or simply get the .dll files "libgcc_s_dw2-1.dll" and "libstdc++-6.dll", but usually I'll upload a built Windows version as a release anyway so you don't need to worry about DLLs
+- A settings file (INI format), a bios.lua (the first lua file that gets executed) and the fontfile (currently called Minecraft.otf for whatever reason)
 
 
 
