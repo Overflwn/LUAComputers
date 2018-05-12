@@ -24,12 +24,13 @@ namespace LuaComputers
 	class Computer
 	{
 	public:
-		Computer(const char* bios);
+		Computer(const char* bios, LuaComputers::Terminal& term);
 		~Computer();
+		void runBiosThread();
 	private:
 		lua_State* L;
+		const char* bios;
 		void bindCFunctions(lua_State* L);
-		Lua::Terminal* lua_terminal;
 	};
 }
 

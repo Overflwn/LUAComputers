@@ -13,6 +13,7 @@ namespace LuaComputers
 		const sf::Vector2f pixel_size;
 		sf::Font font;
 	public:
+		Terminal();
 		Terminal(int width, int height, int window_width, int window_height);
 		~Terminal();
 		int getWidth();

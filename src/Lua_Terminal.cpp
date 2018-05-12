@@ -1,26 +1,16 @@
 #include "Lua_Terminal.h"
-
+#include <iostream>
 #include <cmath>
 
 using namespace LuaComputers::Lua;
 
-Terminal::Terminal(LuaComputers::Terminal* the_terminal) : the_terminal(the_terminal)
-{
-	colors = new LuaComputers::Color[16];
-}
+LuaComputers::Terminal* Terminal::the_terminal;
+LuaComputers::Color* Terminal::colors;
 
-Terminal::~Terminal()
-{
-	delete[] colors;
-	//Don't delete the_terminal as it is defined in Computer.cpp, so Computer.cpp has to delete it
-	
-	colors = nullptr;
-	the_terminal = nullptr;
-}
 
 void Terminal::initColors()
 {
-	
+	colors = new LuaComputers::Color[16];
 	for(int i = 0; i < 16; i++)
 	{
 		colors[i].setLCColor(static_cast<int>(pow(2, i)));
@@ -82,15 +72,14 @@ void Terminal::initColors()
 
 sf::Color Terminal::asSFColor(int lc_color)
 {
-	sf::Color col = sf::Color::Black;
 	for(int i = 0; i < 16; i++)
 	{
 		if(colors[i].getLCColor() == lc_color)
 		{
-			col = colors[i].getSFColor();
+			return colors[i].getSFColor();
 		}
 	}
-	return col;
+	return sf::Color::Black;
 }
 
 int Terminal::getPixel(lua_State* L)
@@ -126,10 +115,10 @@ int Terminal::getPixel(lua_State* L)
 int Terminal::setPixel(lua_State* L)
 {
 	const char* newchar = lua_tostring(L, -1);
-	int lc_fg_color = lua_tonumber(L, -1);
-	int lc_bg_color = lua_tonumber(L, -1);
-	int y = lua_tonumber(L, -1);
-	int x = lua_tonumber(L, -1);
+	int lc_fg_color = lua_tonumber(L, -2);
+	int lc_bg_color = lua_tonumber(L, -3);
+	int y = lua_tonumber(L, -4);
+	int x = lua_tonumber(L, -5);
 	sf::Color bg_color = asSFColor(lc_bg_color);
 	sf::Color fg_color = asSFColor(lc_fg_color);
 	the_terminal->setPixel(x, y, bg_color, newchar[0], fg_color);

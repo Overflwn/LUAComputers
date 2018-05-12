@@ -1,4 +1,6 @@
 #include "Computer.h"
+#include <iostream>
+#include <SFML/System.hpp>
 
 using namespace LuaComputers;
 
@@ -9,29 +11,40 @@ void Computer::bindCFunctions(lua_State* L)
 			lua_pushcfunction(L, foo);
 			lua_setglobal(L, "cpp_foo");
 	 */
-	lua_pushcfunction(lua_terminal->getPixel);
+	lua_pushcfunction(L, Lua::Terminal::getPixel);
 	lua_setglobal(L, "getPixel");
-	lua_pushcfunction(lua_terminal->setPixel);
+	lua_pushcfunction(L, Lua::Terminal::setPixel);
 	lua_setglobal(L, "setPixel");
+	
+	std::cout << "C functions bound!" << std::endl;
 }
 
-Computer::Computer(const char* bios, LuaComputers::Terminal terminal)
+void Computer::runBiosThread()
+{
+	std::cout << "Started" << std::endl;
+	luaL_dofile(L, bios);
+	std::cout << "Finished" << std::endl;
+}
+
+Computer::Computer(const char* bios, LuaComputers::Terminal& term) : bios(bios)
 {
 	L = luaL_newstate();
-	lua_terminal = new Lua::Terminal(terminal);
-	
+	Lua::Terminal::the_terminal = &term;
+	Lua::Terminal::initColors();
 	//Load standard libraries
 	luaL_openlibs(L);
 	//Bind C functions
 	bindCFunctions(L);
+	
+	// Run the bios file in a seperate thread
+	//luaL_dofile(L, bios);
+	//std::thread bios_thread(runBiosThread, L, bios);
 }
 
 Computer::~Computer()
 {
-	delete lua_terminal;
 	delete L;
 	
 	L = nullptr;
-	lua_terminal = nullptr;
 	
 }

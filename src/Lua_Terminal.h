@@ -23,19 +23,14 @@
 
 namespace LuaComputers::Lua
 {
-	class Terminal
+	struct Terminal
 	{
-	public:
-		Terminal(LuaComputers::Terminal* the_terminal);
-		~Terminal();
-		int setPixel(lua_State* L);
-		int getPixel(lua_State* L);
-		void initColors();
-		
-		sf::Color asSFColor(int lc_color);
-	private:
-		LuaComputers::Terminal* the_terminal;
-		LuaComputers::Color* colors;
+		static int setPixel(lua_State* L);
+		static int getPixel(lua_State* L);
+		static void initColors();
+		static LuaComputers::Terminal* the_terminal;
+		static LuaComputers::Color* colors;
+		static sf::Color asSFColor(int lc_color);
 	};
 }
 

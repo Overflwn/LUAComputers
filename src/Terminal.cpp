@@ -7,7 +7,8 @@ Terminal::Terminal(int width, int height, int window_width, int window_height) :
 {
 	printf("Created terminal with dimensions (%d x %d).\nPixels are (%f x %f).\n", width, height, pixel_size.x, pixel_size.y);
 	pixels = new LuaComputers::Pixel[height*width];
-	font.loadFromFile("Minecraft.ttf");
+	font.loadFromFile("Minecraft.otf");
+	
 	
 	float scaling_x = window_width / 816;
 	float scaling_y = window_height / 608;
@@ -23,12 +24,15 @@ Terminal::Terminal(int width, int height, int window_width, int window_height) :
 			printf("PIXEL: %d,    %f x %f\n", y*width+x, pos_x, pos_y);
 			pixels[y*width+x].getShape().setSize(pixel_size);
 			pixels[y*width+x].getShape().setPosition(pos_x, pos_y);
-			pixels[y*width+x].character.setPosition(pos_x, pos_y);
+			pixels[y*width+x].character.setPosition(pos_x+3, pos_y);
 			pixels[y*width+x].character.setFont(font);
 			//pixels[y*width+x].character.setCharacterSize(static_cast<int>(pixel_size.x)*2-1);
 			pixels[y*width+x].character.setCharacterSize(32*scaling_x);
 			//This scaling was tested on a 51x19 terminal size and 816x608 window size.
 			pixels[y*width+x].character.setScale(0.675f, 0.8f);
+			sf::FloatRect bounds = pixels[y*width+x].character.getGlobalBounds();
+			printf("BOUNDS: %f,%f\n", bounds.left, bounds.top);
+			//pixels[y*width+x].character.setPosition(pos_x + (pixel_size.x / 2 - bounds.width / 2),pos_y);
 		}
 	}
 }
@@ -79,10 +83,8 @@ void Terminal::draw(sf::RenderWindow& window)
 	{
 		for (int x = 0; x < width; x++)
 		{
-			//printf("DRAWING: %d\n", y*width+x);
 			window.draw(pixels[y*width+x].getShape());
 			window.draw(pixels[y*width+x].character);
-			
 		}
 	}
 }
