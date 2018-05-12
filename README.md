@@ -13,7 +13,7 @@ Hopefully this will work out..
 
 # Requirements
 ## Executable
-- Currently nothing besides a settings file (XML format) and a bios.lua (the first lua file that gets executed)
+- Currently nothing besides a settings file (XML format), a bios.lua (the first lua file that gets executed) and the fontfile (currently called Minecraft.otf for whatever reason)
 
 
 
