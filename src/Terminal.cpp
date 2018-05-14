@@ -72,6 +72,39 @@ const char* Terminal::getPixelCharacter(int x, int y)
 	return pixels[y*width+x].character.getString().toAnsiString().c_str();
 }
 
+void Terminal::clear(sf::Color color)
+{
+	for(int y = 0; y < height; y++)
+	{
+		for(int x = 0; x < width; x++)
+		{
+			pixels[y*width+x].setColor(color);
+			pixels[y*width+x].character.setString(' ');
+		}
+	}
+}
+
+void Terminal::clearLine(int y, sf::Color color)
+{
+	for(int x = 0; x < width; x++)
+	{
+		pixels[y*width+x].setColor(color);
+		pixels[y*width+x].character.setString(' ');
+	}
+}
+
+void Terminal::clearArea(int x, int y, int _width, int _height, sf::Color color)
+{
+	for(int y2 = y; y2 < y+_height-1; y2++)
+	{
+		for(int x2 = x; x2 < x+_width-1; x2++)
+		{
+			pixels[y2*width+x2].setColor(color);
+			pixels[y2*width+x2].character.setString(' ');
+		}
+	}
+}
+
 void Terminal::draw(sf::RenderWindow& window)
 {
 	for(int y = 0; y < height; y++)

@@ -15,6 +15,12 @@ void Computer::bindCFunctions(lua_State* L)
 	lua_setglobal(L, "getPixel");
 	lua_pushcfunction(L, Lua::Terminal::setPixel);
 	lua_setglobal(L, "setPixel");
+	lua_pushcfunction(L, Lua::Terminal::clear);
+	lua_setglobal(L, "clear");
+	lua_pushcfunction(L, Lua::Terminal::clearLine);
+	lua_setglobal(L, "clearLine");
+	lua_pushcfunction(L, Lua::Terminal::clearArea);
+	lua_setglobal(L, "clearArea");
 	
 	std::cout << "C functions bound!" << std::endl;
 }

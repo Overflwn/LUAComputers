@@ -124,3 +124,33 @@ int Terminal::setPixel(lua_State* L)
 	the_terminal->setPixel(x, y, bg_color, newchar[0], fg_color);
 	return 0;
 }
+
+int Terminal::clear(lua_State* L)
+{
+	int lc_color = lua_tonumber(L, -1);
+	sf::Color col = asSFColor(lc_color);
+	the_terminal->clear(col);
+	return 0;
+}
+
+int Terminal::clearLine(lua_State* L)
+{
+	int lc_color = lua_tonumber(L, -1);
+	int y = lua_tonumber(L, -2);
+	sf::Color col = asSFColor(lc_color);
+	the_terminal->clearLine(y, col);
+	return 0;
+}
+
+int Terminal::clearArea(lua_State* L)
+{
+	int lc_color = lua_tonumber(L, -1);
+	int height = lua_tonumber(L, -2);
+	int width = lua_tonumber(L, -3);
+	int y = lua_tonumber(L, -4);
+	int x = lua_tonumber(L, -5);
+	std::cout << x << ";" << y << ";" << width << ";" << height << std::endl;
+	sf::Color col = asSFColor(lc_color);
+	the_terminal->clearArea(x, y, width, height, col);
+	return 0;
+}

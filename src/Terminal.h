@@ -21,6 +21,9 @@ namespace LuaComputers
 		void setPixel(int x, int y, sf::Color color);
 		void setPixel(int x, int y, sf::Color color, char character);
 		void setPixel(int x, int y, sf::Color color, char character, sf::Color textColor);
+		void clear(sf::Color color);
+		void clearLine(int y, sf::Color color);
+		void clearArea(int x, int y, int width, int height, sf::Color color);
 		sf::Color getPixelColor(int x, int y);
 		sf::Color getPixelTextColor(int x, int y);
 		const char* getPixelCharacter(int x, int y);

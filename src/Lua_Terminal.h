@@ -27,6 +27,9 @@ namespace LuaComputers::Lua
 	{
 		static int setPixel(lua_State* L);
 		static int getPixel(lua_State* L);
+		static int clear(lua_State* L);
+		static int clearLine(lua_State* L);
+		static int clearArea(lua_State* L);
 		static void initColors();
 		static LuaComputers::Terminal* the_terminal;
 		static LuaComputers::Color* colors;
