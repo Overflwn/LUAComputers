@@ -87,10 +87,7 @@ int Terminal::getPixel(lua_State* L)
 	int y = lua_tonumber(L, -1);
 	int x = lua_tonumber(L, -1);
 	sf::Color bg_color = the_terminal->getPixelColor(x, y);
-	sf::Color fg_color = the_terminal->getPixelTextColor(x, y);
-	const char* the_char = the_terminal->getPixelCharacter(x, y);
 	int lc_bg_color = 0;
-	int lc_fg_color = 0;
 	
 	for(int i = 0; i < 16; i++)
 	{
@@ -98,30 +95,21 @@ int Terminal::getPixel(lua_State* L)
 		{
 			lc_bg_color = colors[i].getLCColor();
 		}
-		if(colors[i].getSFColor() == fg_color)
-		{
-			lc_fg_color = colors[i].getLCColor();
-		}
 	}
 	
-	lua_pushstring(L, the_char);
 	lua_pushnumber(L, lc_bg_color);
-	lua_pushnumber(L, lc_fg_color);
 	
-	//We return 3 values (character, background_color, text_color) 
-	return 3;
+	//We return 1 value (color)
+	return 1;
 }
 
 int Terminal::setPixel(lua_State* L)
 {
-	const char* newchar = lua_tostring(L, -1);
-	int lc_fg_color = lua_tonumber(L, -2);
-	int lc_bg_color = lua_tonumber(L, -3);
-	int y = lua_tonumber(L, -4);
-	int x = lua_tonumber(L, -5);
+	int lc_bg_color = lua_tonumber(L, -1);
+	int y = lua_tonumber(L, -2);
+	int x = lua_tonumber(L, -3);
 	sf::Color bg_color = asSFColor(lc_bg_color);
-	sf::Color fg_color = asSFColor(lc_fg_color);
-	the_terminal->setPixel(x, y, bg_color, newchar[0], fg_color);
+	the_terminal->setPixel(x, y, bg_color);
 	return 0;
 }
 

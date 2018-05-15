@@ -83,18 +83,7 @@ int main(int argc, char **argv)
 			<< "Terminal W,H: " << settings->terminal_width << "," << settings->terminal_height << std::endl;
 	
 	LuaComputers::Terminal term(settings->terminal_width, settings->terminal_height, settings->window_width, settings->window_height);
-	term.setPixel(3, 5, sf::Color::Red, 'H');
-	term.setPixel(4, 5, sf::Color::Red, 'e');
-	term.setPixel(5, 5, sf::Color::Red, 'l');
-	term.setPixel(6, 5, sf::Color::Red, 'l');
-	term.setPixel(7, 5, sf::Color::Red, 'o');
-	term.setPixel(8, 5, sf::Color::Black, ' ', sf::Color::White);
-	term.setPixel(9, 5, sf::Color::Red, 'W');
-	term.setPixel(10, 5, sf::Color::Red, 'o');
-	term.setPixel(11, 5, sf::Color::Red, 'r');
-	term.setPixel(12, 5, sf::Color::Red, 'l');
-	term.setPixel(13, 5, sf::Color::Red, 'd');
-	
+	std::cout << "Term created" << std::endl;
 	sf::Clock clock;
 	sf::Time time;
 	

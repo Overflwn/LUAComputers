@@ -24,11 +24,10 @@ namespace LuaComputers
 	{
 	public:
 		Pixel();
-		Pixel(sf::Color color, char character);
+		Pixel(sf::Color color);
 		sf::Color getColor();
 		void setColor(sf::Color color);
 		sf::RectangleShape& getShape();
-		sf::Text character;
 	private:
 		sf::Color color;
 		sf::RectangleShape shape;
