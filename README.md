@@ -1,9 +1,3 @@
-# THIS VERSION IS DEPRECATED
-**I ported LuaComputers to Java quite a while ago and it is *far* more advanced than this version, check it out [here](https://gitlab.com/Piorjade/jluacomputers)**
-
-**However, do what you want with this code if you still want a LÖVE version...**
-
-
 # LUAComputers
 Boot up a virtual retro-like computer and start developing games and programs in Lua!
 
