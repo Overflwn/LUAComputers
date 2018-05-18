@@ -1,13 +1,13 @@
 LIBDIR = libraries/
 INCLUDE_WIN = -I$(LIBDIR)windows/lua-5.3.4/include -I$(LIBDIR)windows/SFML-2.4.2/include 
 LIB_DIR_WIN = -L$(LIBDIR)windows/lua-5.3.4/lib -L$(LIBDIR)windows/SFML-2.4.2/lib
-INCLUDE_UNI = -I/home/patrick/Documents/cpp_libs/lua-5.3.4/include
-LIB_DIR_UNI = -L/home/patrick/Documents/cpp_libs/lua-5.3.4/lib
-INCLUDE_OSX = 
-LIB_DIR_OSX = 
+INCLUDE_UNI = -I~/Documents/cpp_libs/lua-5.3.4/include
+LIB_DIR_UNI = -L~/Documents/cpp_libs/lua-5.3.4/lib
+INCLUDE_OSX = -I~/Documents/SFML-2.5.0/include -I~/Documents/lua-5.3.4/include
+LIB_DIR_OSX = -L~/Documents/SFML-2.5.0/lib -L~/Documents/lua-5.3.4/lib
 LINK_WIN = -lsfml-graphics-d -lsfml-window-d -lsfml-network-d -lsfml-system-d -llua
 LINK_UNI = -lsfml-graphics -lsfml-window -lsfml-network -lsfml-system -llua -ldl
-LINK_OSX = -lsfml-graphics-d -lsfml-window-d -lsfml-network-d -lsfml-system-d -llua
+LINK_OSX = -lsfml-graphics -lsfml-window -lsfml-network -lsfml-system -llua
 
 # Change these values to your platform (e.g.: INCLUDE = $(INCLUDE_UNI) -I$(LIBDIR)cross/simpleini-master)
 # In the include variable, leave the last include path as it is (the simpleini library)
