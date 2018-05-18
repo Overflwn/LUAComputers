@@ -21,6 +21,8 @@
 #include "Lua_Computer.h"
 #include <queue>
 #include "ComputerEvent.h"
+#include "NetworkMessage.h"
+#include "Lua_Udp_Sender.h"
 #include <atomic>
 
 namespace LuaComputers
@@ -28,7 +30,7 @@ namespace LuaComputers
 	class Computer
 	{
 	public:
-		Computer(const char* bios, LuaComputers::Terminal& term, std::queue<LuaComputers::ComputerEvent>& events);
+		Computer(const char* bios, LuaComputers::Terminal& term, std::queue<LuaComputers::ComputerEvent>& events, std::queue<LuaComputers::NetworkMessage>& msgQueue);
 		~Computer();
 		void runBiosThread();
 		void freeMemory();

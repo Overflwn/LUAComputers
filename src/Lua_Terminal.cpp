@@ -84,7 +84,7 @@ sf::Color Terminal::asSFColor(int lc_color)
 
 int Terminal::getPixel(lua_State* L)
 {
-	if(lua_gettop(L) == 2)
+	if(lua_gettop(L) >= 2)
 	{
 		int y = lua_tonumber(L, -1);
 		int x = lua_tonumber(L, -1);
@@ -112,7 +112,7 @@ int Terminal::getPixel(lua_State* L)
 
 int Terminal::setPixel(lua_State* L)
 {
-	if(lua_gettop(L) == 3)
+	if(lua_gettop(L) >= 3)
 	{
 		int lc_bg_color = lua_tonumber(L, -1);
 		int y = lua_tonumber(L, -2);

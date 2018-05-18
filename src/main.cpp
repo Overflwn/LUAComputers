@@ -22,7 +22,9 @@
 #include <SimpleIni.h>
 #include "ComputerEvent.h"
 #include "NetworkAdapterUDP_Receiver.h"
+#include "NetworkAdapterUDP_Sender.h"
 #include "Computer.h"
+#include "NetworkMessage.h"
 #include <queue>
 #include <string>
 #include <stdlib.h>
@@ -84,8 +86,10 @@ int main(int argc, char **argv)
 	sf::Time time;
 	
 	std::queue<LuaComputers::ComputerEvent> events;
+	std::queue<LuaComputers::NetworkMessage> msgQueue;
 	LuaComputers::NetworkAdapterUDP_Receiver udp_receiver(settings->networking_port,1024, events);
-	LuaComputers::Computer computer("bios.lua", term, events);
+	LuaComputers::NetworkAdapterUDP_Sender udp_sender(settings->networking_port,msgQueue);
+	LuaComputers::Computer computer("bios.lua", term, events, msgQueue);
 	
 	
 	sf::Thread b_thread(&LuaComputers::Computer::runBiosThread, &computer);
@@ -93,6 +97,9 @@ int main(int argc, char **argv)
 
 	sf::Thread c_thread(&LuaComputers::NetworkAdapterUDP_Receiver::runUdpReceiverThread, &udp_receiver);
 	c_thread.launch();
+
+	sf::Thread d_thread(&LuaComputers::NetworkAdapterUDP_Sender::runUdpSenderThread, &udp_sender);
+	d_thread.launch();
 	
 	//Main SFML loop
 	sf::RenderWindow window(sf::VideoMode(settings->window_width, settings->window_height+50), settings->window_title);
@@ -109,11 +116,14 @@ int main(int argc, char **argv)
 			{
 				case sf::Event::Closed:
 					udp_receiver.setRunning(false);
+					udp_sender.setRunning(false);
 					c_thread.wait();
+					d_thread.wait();
 					b_thread.terminate();
 					//c_thread.terminate();
 					computer.freeMemory();
 					udp_receiver.freeMemory();
+					udp_sender.freeMemory();
 					window.close();
 					running = false;
 					break;

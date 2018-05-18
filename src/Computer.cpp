@@ -26,9 +26,11 @@ void Computer::bindCFunctions(lua_State* L)
 	lua_setglobal(L, "pullEvent");
 	lua_pushcfunction(L, Lua::Computer::pushEvent);
 	lua_setglobal(L, "pushEvent");
+	lua_pushcfunction(L, Lua::UdpSender::send);
+	lua_setglobal(L, "network_send");
 
 	//Pop 7 times to get rid of the functions in the stack
-	for(int i = 0; i < 7; i++)
+	for(int i = 0; i < 8; i++)
 	{
 		lua_pop(L, -1);
 	}
@@ -43,11 +45,12 @@ void Computer::runBiosThread()
 	std::cout << "Finished" << std::endl;
 }
 
-Computer::Computer(const char* bios, LuaComputers::Terminal& term, std::queue<LuaComputers::ComputerEvent>& events) : bios(bios)
+Computer::Computer(const char* bios, LuaComputers::Terminal& term, std::queue<LuaComputers::ComputerEvent>& events, std::queue<LuaComputers::NetworkMessage>& msgQueue) : bios(bios)
 {
 	L = luaL_newstate();
 	Lua::Terminal::the_terminal = &term;
 	Lua::Computer::the_events = &events;
+	Lua::UdpSender::msgQueue = &msgQueue;
 	Lua::Terminal::initColors();
 	//Load standard libraries
 	luaL_openlibs(L);
