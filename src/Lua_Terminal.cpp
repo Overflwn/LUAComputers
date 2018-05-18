@@ -84,20 +84,27 @@ sf::Color Terminal::asSFColor(int lc_color)
 
 int Terminal::getPixel(lua_State* L)
 {
-	int y = lua_tonumber(L, -1);
-	int x = lua_tonumber(L, -1);
-	sf::Color bg_color = the_terminal->getPixelColor(x, y);
-	int lc_bg_color = 0;
-	
-	for(int i = 0; i < 16; i++)
+	if(lua_gettop(L) == 2)
 	{
-		if(colors[i].getSFColor() == bg_color)
+		int y = lua_tonumber(L, -1);
+		int x = lua_tonumber(L, -1);
+		lua_pop(L, -1);
+		lua_pop(L, -1);
+		sf::Color bg_color = the_terminal->getPixelColor(x, y);
+		int lc_bg_color = 0;
+		
+		for(int i = 0; i < 16; i++)
 		{
-			lc_bg_color = colors[i].getLCColor();
+			if(colors[i].getSFColor() == bg_color)
+			{
+				lc_bg_color = colors[i].getLCColor();
+			}
 		}
+		lua_pushnumber(L, lc_bg_color);
+	}else
+	{
+		luaL_error(L, "expected int, int");
 	}
-	
-	lua_pushnumber(L, lc_bg_color);
 	
 	//We return 1 value (color)
 	return 1;
@@ -105,40 +112,81 @@ int Terminal::getPixel(lua_State* L)
 
 int Terminal::setPixel(lua_State* L)
 {
-	int lc_bg_color = lua_tonumber(L, -1);
-	int y = lua_tonumber(L, -2);
-	int x = lua_tonumber(L, -3);
-	sf::Color bg_color = asSFColor(lc_bg_color);
-	the_terminal->setPixel(x, y, bg_color);
-	return 0;
+	if(lua_gettop(L) == 3)
+	{
+		int lc_bg_color = lua_tonumber(L, -1);
+		int y = lua_tonumber(L, -2);
+		int x = lua_tonumber(L, -3);
+		lua_pop(L, -1);
+		lua_pop(L, -1);
+		lua_pop(L, -1);
+		sf::Color bg_color = asSFColor(lc_bg_color);
+		the_terminal->setPixel(x, y, bg_color);
+		return 0;
+	}else
+	{
+		luaL_error(L, "expected int, int, int");
+		return 1;
+	}
 }
 
 int Terminal::clear(lua_State* L)
 {
-	int lc_color = lua_tonumber(L, -1);
-	sf::Color col = asSFColor(lc_color);
-	the_terminal->clear(col);
-	return 0;
+	if(lua_gettop(L) >= 1)
+	{
+		int lc_color = lua_tonumber(L, -1);
+		lua_pop(L, -1);
+		sf::Color col = asSFColor(lc_color);
+		the_terminal->clear(col);
+		return 0;
+	}else
+	{
+		luaL_error(L, "expected int");
+		return 1;
+	}
+	
 }
 
 int Terminal::clearLine(lua_State* L)
 {
-	int lc_color = lua_tonumber(L, -1);
-	int y = lua_tonumber(L, -2);
-	sf::Color col = asSFColor(lc_color);
-	the_terminal->clearLine(y, col);
-	return 0;
+	if(lua_gettop(L) >= 2)
+	{
+		int lc_color = lua_tonumber(L, -1);
+		int y = lua_tonumber(L, -2);
+		lua_pop(L, -1);
+		lua_pop(L, -1);
+		sf::Color col = asSFColor(lc_color);
+		the_terminal->clearLine(y, col);
+		return 0;
+	}else
+	{
+		luaL_error(L, "expected int, int");
+		return 1;
+	}
 }
 
 int Terminal::clearArea(lua_State* L)
 {
-	int lc_color = lua_tonumber(L, -1);
-	int height = lua_tonumber(L, -2);
-	int width = lua_tonumber(L, -3);
-	int y = lua_tonumber(L, -4);
-	int x = lua_tonumber(L, -5);
-	std::cout << x << ";" << y << ";" << width << ";" << height << std::endl;
-	sf::Color col = asSFColor(lc_color);
-	the_terminal->clearArea(x, y, width, height, col);
-	return 0;
+	if(lua_gettop(L) >= 5)
+	{
+		int lc_color = lua_tonumber(L, -1);
+		int height = lua_tonumber(L, -2);
+		int width = lua_tonumber(L, -3);
+		int y = lua_tonumber(L, -4);
+		int x = lua_tonumber(L, -5);
+		lua_pop(L, -1);
+		lua_pop(L, -1);
+		lua_pop(L, -1);
+		lua_pop(L, -1);
+		lua_pop(L, -1);
+		std::cout << x << ";" << y << ";" << width << ";" << height << std::endl;
+		sf::Color col = asSFColor(lc_color);
+		the_terminal->clearArea(x, y, width, height, col);
+		return 0;
+	}else
+	{
+		luaL_error(L, "expected int, int, int, int, int");
+		return 1;
+	}
+	
 }

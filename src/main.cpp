@@ -21,6 +21,7 @@
 #include "Terminal.h"
 #include <SimpleIni.h>
 #include "ComputerEvent.h"
+#include "NetworkAdapterUDP_Receiver.h"
 #include "Computer.h"
 #include <queue>
 #include <string>
@@ -36,15 +37,6 @@ static LuaComputers::Settings* loadSettings(const char* file)
 	 * Warning: No real error checking
 	 */
 	LuaComputers::Settings* settings = new LuaComputers::Settings();
-	/*tinyxml2::XMLDocument doc;
-	doc.LoadFile(file);
-	const tinyxml2::XMLElement* window_settings = doc.FirstChildElement("settings")->FirstChildElement("window");
-	const tinyxml2::XMLElement* terminal_settings = doc.FirstChildElement("settings")->FirstChildElement("terminal");
-	const char* title = window_settings->FirstChildElement("title")->GetText();
-	int w_width = window_settings->FirstChildElement("width")->IntText(800);
-	int w_height = window_settings->FirstChildElement("height")->IntText(600);
-	int t_width = terminal_settings->FirstChildElement("width")->IntText(51);
-	int t_height = terminal_settings->FirstChildElement("height")->IntText(19);*/
 	CSimpleIniA ini;
 	ini.SetUnicode();
 	ini.LoadFile(file);
@@ -53,15 +45,18 @@ static LuaComputers::Settings* loadSettings(const char* file)
 	const char* w_height_s = ini.GetValue("window", "height", "608");
 	const char* t_width_s = ini.GetValue("terminal", "width", "51");
 	const char* t_height_s = ini.GetValue("terminal", "height", "19");
+	const char* c_networking_port_s = ini.GetValue("computer", "networking_port");
 
 	int w_width = 0;
 	int w_height = 0;
 	int t_width = 0;
 	int t_height = 0;
+	unsigned short c_networking_port = 0;
 	w_width = strtol(w_width_s, nullptr, 10);
 	w_height = strtol(w_height_s, nullptr, 10);
 	t_width = strtol(t_width_s, nullptr, 10);
 	t_height = strtol(t_height_s, nullptr, 10);
+	c_networking_port = static_cast<unsigned short>(strtol(c_networking_port_s, nullptr, 6969));
 
 
 
@@ -70,6 +65,7 @@ static LuaComputers::Settings* loadSettings(const char* file)
 	settings->window_title = title;
 	settings->terminal_width = t_width;
 	settings->terminal_height = t_height;
+	settings->networking_port = c_networking_port;
 	return settings;
 }
 
@@ -88,15 +84,23 @@ int main(int argc, char **argv)
 	sf::Time time;
 	
 	std::queue<LuaComputers::ComputerEvent> events;
+	LuaComputers::NetworkAdapterUDP_Receiver udp_receiver(settings->networking_port,1024, events);
+	LuaComputers::Computer computer("bios.lua", term, events);
 	
-	LuaComputers::Computer computer("bios.lua", term);
 	
 	sf::Thread b_thread(&LuaComputers::Computer::runBiosThread, &computer);
 	b_thread.launch();
+
+	sf::Thread c_thread(&LuaComputers::NetworkAdapterUDP_Receiver::runUdpReceiverThread, &udp_receiver);
+	c_thread.launch();
 	
 	//Main SFML loop
-	sf::RenderWindow window(sf::VideoMode(settings->window_width, settings->window_height), settings->window_title);
-	while(window.isOpen())
+	sf::RenderWindow window(sf::VideoMode(settings->window_width, settings->window_height+50), settings->window_title);
+	sf::RectangleShape control_panel(sf::Vector2f(settings->window_width, 50));
+	control_panel.setPosition(sf::Vector2f(0, settings->window_height-50));
+	control_panel.setFillColor(sf::Color(200, 200, 200));
+	bool running = true;
+	while(window.isOpen() && running)
 	{
 		sf::Event event;
 		while(window.pollEvent(event))
@@ -104,17 +108,31 @@ int main(int argc, char **argv)
 			switch(event.type)
 			{
 				case sf::Event::Closed:
-					window.close();
+					udp_receiver.setRunning(false);
+					c_thread.wait();
 					b_thread.terminate();
+					//c_thread.terminate();
+					computer.freeMemory();
+					udp_receiver.freeMemory();
+					window.close();
+					running = false;
 					break;
 				case sf::Event::TextEntered:
-					events.push(LuaComputers::ComputerEvent("char", std::to_string(event.text.unicode).c_str()));
+					events.push(LuaComputers::ComputerEvent("char", std::to_string(event.text.unicode).c_str(), "nil", "nil"));
 					break;
 			}
+			if(!running)
+				break;
 		}
+		if(!running)
+		{
+			break;
+		}
+			
 		
 		window.clear();
 		term.draw(window);
+		window.draw(control_panel);
 		window.display();
 		
 		time = clock.getElapsedTime();

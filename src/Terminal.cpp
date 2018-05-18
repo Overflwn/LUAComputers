@@ -6,7 +6,7 @@ using namespace LuaComputers;
 Terminal::Terminal(int width, int height, int window_width, int window_height) : width(width), height(height), pixel_size(window_width/width, window_height/height)
 {
 	printf("Created terminal with dimensions (%d x %d).\nPixels are (%f x %f).\n", width, height, pixel_size.x, pixel_size.y);
-	pixels = new LuaComputers::Pixel[height*width];
+	//pixels = new LuaComputers::Pixel[height*width];
 	
 	float scaling_x = window_width / 816;
 	float scaling_y = window_height / 608;

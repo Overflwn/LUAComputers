@@ -24,8 +24,9 @@ namespace LuaComputers
 		int terminal_width;
 		int terminal_height;
 		const char* window_title;
+		unsigned short networking_port;
 		Settings();
-		Settings(int width, int height, int t_width, int t_height, const char* title);
+		Settings(int width, int height, int t_width, int t_height, const char* title ,unsigned short networking_port);
 	};
 }
 

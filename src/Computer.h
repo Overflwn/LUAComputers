@@ -18,15 +18,20 @@
 #include <lua.hpp>
 #include <lauxlib.h>
 #include "Lua_Terminal.h"
+#include "Lua_Computer.h"
+#include <queue>
+#include "ComputerEvent.h"
+#include <atomic>
 
 namespace LuaComputers
 {
 	class Computer
 	{
 	public:
-		Computer(const char* bios, LuaComputers::Terminal& term);
+		Computer(const char* bios, LuaComputers::Terminal& term, std::queue<LuaComputers::ComputerEvent>& events);
 		~Computer();
 		void runBiosThread();
+		void freeMemory();
 	private:
 		lua_State* L;
 		const char* bios;
