@@ -102,9 +102,9 @@ int main(int argc, char **argv)
 	d_thread.launch();
 	
 	//Main SFML loop
-	sf::RenderWindow window(sf::VideoMode(settings->window_width, settings->window_height+50), settings->window_title);
-	sf::RectangleShape control_panel(sf::Vector2f(settings->window_width, 50));
-	control_panel.setPosition(sf::Vector2f(0, settings->window_height-50));
+	sf::RenderWindow window(sf::VideoMode(settings->window_width, settings->window_height+20), settings->window_title);
+	sf::RectangleShape control_panel(sf::Vector2f(settings->window_width, 20));
+	control_panel.setPosition(sf::Vector2f(0, window.getSize().y-20));
 	control_panel.setFillColor(sf::Color(200, 200, 200));
 	bool running = true;
 	while(window.isOpen() && running)

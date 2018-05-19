@@ -11,9 +11,9 @@ LINK_OSX = -lsfml-graphics -lsfml-window -lsfml-network -lsfml-system -llua
 
 # Change these values to your platform (e.g.: INCLUDE = $(INCLUDE_UNI) -I$(LIBDIR)cross/simpleini-master)
 # In the include variable, leave the last include path as it is (the simpleini library)
-INCLUDE = $(INCLUDE_UNI) -I$(LIBDIR)cross/simpleini-master
-LIB_DIR = $(LIB_DIR_UNI)
-LINK = $(LINK_UNI)
+INCLUDE = $(INCLUDE_WIN) -I$(LIBDIR)cross/simpleini-master
+LIB_DIR = $(LIB_DIR_WIN)
+LINK = $(LINK_WIN)
 COMPILER = g++
 
 OUTPUT_PATH = build/
