@@ -1,9 +1,3 @@
-# THIS VERSION IS DEPRECATED
-**I ported LuaComputers to Java quite a while ago and it is *far* more advanced than this version, check it out [here](https://gitlab.com/Piorjade/jluacomputers)**
-
-**However, do what you want with this code if you still want a LÖVE version...**
-
-
 # LUAComputers
 Boot up a virtual retro-like computer and start developing games and programs in Lua!
 
@@ -44,8 +38,9 @@ Hopefully this will work out..
 - ~~Basic graphics~~
 - Sound-System
 - _Lua VM_
-- _Event Handling_
+- ~~Event Handling~~
 - _Lua Bindings_
 - _Code Cleanup_		**NOTE: This is done whenever I made a certain amount of progress so I can still understand what I've done the next time I continue**
+- ~~(UDP) Networking Sockets~~
 - Documentation
 
