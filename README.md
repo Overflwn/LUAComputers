@@ -1,4 +1,4 @@
-# LUAComputers
+# LuaComputers
 Boot up a virtual retro-like computer and start developing games and programs in Lua!
 
 
@@ -20,9 +20,9 @@ Hopefully this will work out..
 
 
 ## Development setup
-- SFML (Included for windows)
-- simpleini (included in the libraries folder and already set in the Makefile)
-- Lua libs / headers (Also included for windows)
+- SFML (should be in your default search path, add it to CMakeLists.txt otherwise)
+- simpleini (included in the include folder and already set in the CMakeLists.txt)
+- Lua libs / headers (should be in your default search path, add it to CMakeLists.txt otherwise)
 
 
 
@@ -41,6 +41,6 @@ Hopefully this will work out..
 - ~~Event Handling~~
 - _Lua Bindings_
 - _Code Cleanup_		**NOTE: This is done whenever I made a certain amount of progress so I can still understand what I've done the next time I continue**
-- ~~(UDP) Networking Sockets~~
+- ~~(UDP) Networking Sockets~~ **UPDATE: Apparently this is broken (messages don't send) so I have to work on this again**
 - Documentation
 

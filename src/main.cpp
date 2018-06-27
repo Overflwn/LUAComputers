@@ -19,7 +19,7 @@
 #include <lauxlib.h>
 #include "Settings.h"
 #include "Terminal.h"
-#include <SimpleIni.h>
+#include <simpleini/SimpleIni.h>
 #include "ComputerEvent.h"
 #include "NetworkAdapterUDP_Receiver.h"
 #include "NetworkAdapterUDP_Sender.h"
