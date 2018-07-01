@@ -1,3 +1,5 @@
+# UPDATE: I moved this project over to GitLab for personal reasons, link: [here](https://gitlab.com/Overflwn/LuaComputers)
+
 # LuaComputers
 Boot up a virtual retro-like computer and start developing games and programs in Lua!
 
